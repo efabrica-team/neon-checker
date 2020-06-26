@@ -1,0 +1,19 @@
+{
+    "name": "efabrica/neon-checker",
+    "description": "Finds all neons in selected paths and try them decode",
+    "type": "library",
+    "keywords": ["neon", "syntax", "ci", "test"],
+    "license": "MIT",
+    "require": {
+        "php": ">= 7.1.0",
+        "nette/neon": "^2.4 | ^3.0",
+        "symfony/finder": "^4.2 | ^5.0",
+        "symfony/console": "^4.2 | ^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "NeonChecker\\": "src"
+        }
+    },
+    "bin": ["bin/neon-checker"]
+}
