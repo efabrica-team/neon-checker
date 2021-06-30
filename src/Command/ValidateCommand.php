@@ -3,30 +3,29 @@
 namespace NeonChecker\Command;
 
 use Nette\Neon\Neon;
-use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 use Throwable;
 
-class CheckCommand extends Command
+class ValidateCommand extends Command
 {
     protected function configure(): void
     {
         parent::configure();
-        $this->setName('check')
-            ->setDescription('Command compiles all *.latte files and then checks syntax of all generated *.php files')
+        $this->setName('validate')
+            ->setAliases(['check'])
+            ->setDescription('Command tries to decode all *.neon files in selected dirs and if it is not successful, prints error')
             ->addArgument('dirs', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'List of directories to check')
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var string|string[] $dirs */
+        /** @var string[] $dirs */
         $dirs = $input->getArgument('dirs');
         $errors = [];
         foreach (Finder::create()->files()->name('*.neon')->in($dirs) as $file) {

@@ -1,7 +1,8 @@
 #!/usr/bin/env php
 <?php
 
-use NeonChecker\Command\CheckCommand;
+use NeonChecker\Command\DisallowedCommand;
+use NeonChecker\Command\ValidateCommand;
 use Symfony\Component\Console\Application;
 
 $autoloader = require __DIR__ . '/../src/composer_autoloader.php';
@@ -15,5 +16,6 @@ if (!$autoloader()) {
 }
 
 $application = new Application();
-$application->add(new CheckCommand());
+$application->add(new ValidateCommand());
+$application->add(new DisallowedCommand());
 $application->run();
