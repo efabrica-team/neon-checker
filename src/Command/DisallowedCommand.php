@@ -47,7 +47,11 @@ class DisallowedCommand extends Command
         $errorsCount = 0;
         foreach (Finder::create()->files()->name('*.neon')->in($dirs) as $file) {
             $path = (string)$file;
+
             $content = file_get_contents($path) ?: '';
+            if ($content === '') {
+                continue;
+            }
             $config = Neon::decode($content);
 
             $disallowedKeysInConfig = $this->checkDisallowedKeys($config, $disallowedKeys);
